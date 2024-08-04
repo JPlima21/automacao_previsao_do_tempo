@@ -51,23 +51,33 @@ def get_weather(driver, wait):
         wait.until(EC.presence_of_all_elements_located((By.XPATH,'//div[@class="temp-container"]/div[@class="temp"]')))
         wait.until(EC.presence_of_all_elements_located((By.XPATH,'//div[@class="real-feel"]')))
         wait.until(EC.presence_of_all_elements_located((By.XPATH,'//span[@class="phrase"]')))
+        wait.until(EC.presence_of_all_elements_located((By.XPATH,'//p[@class="day"]')))
         
         #Pegando a temperatura atual, sensação termica e condição atual
         temp_atual = driver.find_element(By.XPATH,'//div[@class="temp-container"]/div[@class="temp"]')
         sensacao_termica = driver.find_element(By.XPATH,'//div[@class="real-feel"]')
         condicao_temp = driver.find_element(By.XPATH,'//span[@class="phrase"]')
 
+        #Pegando a temperatura max/min e data dos próximos 3 dias 
+        previsoes_futuras = driver.find_elements(By.XPATH,'//p[@class="day"]')
+
         sensacao_texto = sensacao_termica.text
         atual_texto = temp_atual.text
         condicao_texto = condicao_temp.text
 
+        prox_3_dias = []
+        for previsao in previsoes_futuras:
+            prox_3_dias.append([previsao.text])    
+
         print(condicao_texto)
-        print(f' temperatura atual: {atual_texto}')
+        print(f'temperatura atual: {atual_texto}')
         print(sensacao_texto + 'C')
+        print(prox_3_dias[1:4])
     except:
         print(f'Erro! elemento não encontrado')
 
     finally:
+        print('Finalizando a busca...')
         driver.quit()
 
 def email():
