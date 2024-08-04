@@ -33,10 +33,18 @@ def get_weather(driver, wait):
     driver.get(url)
     sleep(1)
     pesquisa = wait.until(EC.element_to_be_clickable((By.XPATH,'//input[@class="search-input"]')))
-    #pesquisa.click()
     sleep(1)
     pesquisa.send_keys('Fortaleza ceará' + Keys.ENTER)
-    sleep(3)
+    sleep(1)
+    wait.until(EC.presence_of_all_elements_located((By.XPATH,'//div[@class="temp-container"]/div[@class="temp"]')))
+    wait.until(EC.presence_of_all_elements_located((By.XPATH,'//div[@class="real-feel"]')))
+    temp_atual = driver.find_element(By.XPATH,'//div[@class="temp-container"]/div[@class="temp"]')
+    sensacao_termica = driver.find_element(By.XPATH,'//div[@class="real-feel"]')
+    sensacao_texto = sensacao_termica.text
+    atual_texto = temp_atual.text
+
+    print(atual_texto)
+    print(sensacao_texto[-3:])
 
     driver.quit()
 
