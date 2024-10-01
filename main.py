@@ -59,7 +59,7 @@ def get_weather(driver, wait):
         condicao_temp = driver.find_element(By.XPATH,'//span[@class="phrase"]')
 
         #Pegando a temperatura max/min e data dos próximos 3 dias 
-        previsoes_futuras = driver.find_elements(By.XPATH,'//p[@class="day"]')
+        previsoes_futuras = driver.find_elements(By.XPATH,'//div[@class="date"]/p')
 
         sensacao_texto = sensacao_termica.text
         atual_texto = temp_atual.text
